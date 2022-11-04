@@ -1,7 +1,7 @@
 const Paciente = require("../models/Pacientes");
 
 
-// Crear Paciente
+// Insertar Paciente
 const pacienteSave = async (req, res) => {
     try {
         const paciente = new Paciente(req.body);
@@ -13,7 +13,7 @@ const pacienteSave = async (req, res) => {
 };
 
 
-//Listar Paciente
+// Listar Paciente
 const pacientesList = async (req, res) => {
     try {
         const listaPacientes = await Paciente.find();
@@ -23,23 +23,54 @@ const pacientesList = async (req, res) => {
     }
 }
 
-//Consultar por Id
-const pacientesXid = async (req, res) =>{
+// Consultar por Id
+const pacientesXid = async (req, res) => {
     try {
-        const id = req.params.documento;
-        if (id) {
+        const id = req.params.id;
+        if(id){
             const paciente = await Paciente.findById(id);
-            res.status(200).send(paciente);
-        } else {
-            res.send("No existe el paciente.");
+            if(paciente){
+                res.status(200).send(paciente);
+            }else{
+                res.send("No existe el paciente.");
+            }
         }
-    } catch (error) {
+        else{
+            res.send("No se puede tramitar la petición.");
+        }
+        } 
+    catch (error) {
         console.error(error);
+    }
+}
+
+// Actualizar Paciente
+const pacienteEdit = async (req, res) =>{
+    try {
+        const id = req.params.id;
+        const paciente = req.body;
+        await Paciente.findByIdAndUpdate(id, paciente);
+        res.send("Paciente actualizado.")
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Eliminar Paciente
+const pacienteDelete = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await Paciente.findByIdAndDelete(id);
+        res.send("Paciente fue eliminado correctamente.")
+    } catch (error) {
+        console.log(error);
     }
 }
 
 module.exports = {
     pacienteSave,
     pacientesList,
-    pacientesXid
+    pacientesXid,
+    pacienteEdit,
+    pacienteDelete
 }

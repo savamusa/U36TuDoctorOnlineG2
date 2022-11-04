@@ -10,6 +10,10 @@ routerPacientes.post("/new", controlPaciente.pacienteSave);
 
 routerPacientes.get("/list", controlPaciente.pacientesList);
 
-routerPacientes.get("/find/:documento", controlPaciente.pacientesXid);
+routerPacientes.get("/find/:id", controlPaciente.pacientesXid);
+
+routerPacientes.put("/edit/:id", controlPaciente.pacienteEdit);
+
+routerPacientes.delete("/delete/:id", controlPaciente.pacienteDelete);
 
 module.exports = routerPacientes;
