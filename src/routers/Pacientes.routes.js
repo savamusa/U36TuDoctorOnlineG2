@@ -3,7 +3,7 @@ const routerPacientes = Router();
 const controlPaciente = require("../controllers/controllerPacientes");
 
 routerPacientes.get("/", (req, res) => {
-    res.send("Funcionalidad de Pacientes Activa");
+    res.send("Funcionalidad Pacientes Corriendo!!");
 });
 
 routerPacientes.post("/new", controlPaciente.pacienteSave);
