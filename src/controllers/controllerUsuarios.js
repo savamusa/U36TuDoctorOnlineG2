@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const usuarioSave = async (req, res) => {
     try {
         const { email } = req.body;
-        let usuario = Usuario.findOne({ email });
+        let usuario = await Usuario.findOne({ email });
 
         if (usuario) {
             return res.status(400).json({ mensaje: "Usuario existente." });
